@@ -35,28 +35,37 @@ def cadastrarConta():
 #falta fazer a função para sair do banco
 def menuPrincipal():
 	traco()
-	print('BEM VINDOS AO BANCO TAL \n'
+	opcaoMenuPrincipal = int(input('BEM VINDOS AO BANCO TAL \n'
 				'DIGITE A OPÇÃO A SEGUIR\n'
         '1 - ALTERAR/EXCLUSÃO DE CONTA \n'
         '2 - CONSULTAR/FAZER DEPOSITO \n'
         '3 - PIX \n'
 				'4 - CONSULTAR EXTRATO \n'
-        '5 - SAIR DA CONTA')
-  opcaoMenuPrincipal = int(input('DIG'))
-	traco()
+        '5 - SAIR DA CONTA'))
+	if opcaoMenuPrincipal == 1:
+  	menuAlterarConta()
+  elif opcaoMenuPrincipal == 2:
+		menuDepositos()
+ 	elif opcaoMenuPrincipal == 3:
+    menuPix()
+	elif opcaoMenuPrincipal == 4:
+  	menuExtrato()
+
+    
+                              
        
 #menu para alteração e delete de conta
 #falta fazer o processo de alteração e exclusão de conta
 def menuAlterarConta():
-    traco()
-    print('VOCÊ DESEJA ALTERAR OU DELETAR A CONTA? \n'
+  traco()
+  print('VOCÊ DESEJA ALTERAR OU DELETAR A CONTA? \n'
 				'SELECIONE A OPÇÃO A SEGUIR\n'
         '1 - DELETAR A CONTA \n'
         '2 - ALTERAR A CONTA \n')
-    print('seu cpf é: ' , cpf[-1] )
-    print('O numero da sua conta é: ' , numeroConta[-1])
-    print('seu nome é: ' , nome[-1])
-    traco()
+  print('seu cpf é: ' , cpf[-1] )
+  print('O numero da sua conta é: ' , numeroConta[-1])
+  print('seu nome é: ' , nome[-1])
+  traco()
 
 #menu de depositos  e consulta de saldo
 #deve estar faltando alguma coisa, só n lembro agr, analisa direitinho
