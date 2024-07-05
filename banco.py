@@ -1,11 +1,40 @@
+from datetime import date
 contas = []
 depositos = []
+pixs = []
 
 
 def traco(x=50):
     for i in range(0, x):
         print("=", end='')
     print("\n")
+
+def menuExtrato():
+    traco()
+    id = int(input('DIGITE O CPF QUE IRÁ CONSULTAR: '))
+    for conta in contas:
+        if id == conta[0]:
+            print('DIGITE 1 PARA VER O HISTORICO DE PIX \n',
+                  'DIGITE 2 PARA VER O HISTORICO DE DEPOSITOS \n',
+                  'DIGITE 3 PARA VOLTAR AO MENU PRINCIPAL')
+            escolhas = ('DIGITE O NUMERO: ')
+            if escolhas == 1:
+                for deposito in depositos:
+                    if id == deposito[0]:
+                        print('ESSE É SEU HISTORICO DE DEPOSITOS: \n' ,
+                              deposito)
+            if escolhas == 2:
+                for pix in pixs:
+                    if id == pix[0]:
+                        print('ESSE É O SEU HISTORICO DE PIX: \n',
+                              pix)
+            if escolhas == 3:
+                menuPrincipal()
+        elif id != conta[0]:
+            print('NÃO EXISTE ESSE CPF, ADICIONE-O')
+            menuCadastro()
+    traco()
+    menuPrincipal()
 
 def menuDepositos():
     traco()
@@ -14,9 +43,38 @@ def menuDepositos():
         if id == conta[0]:
             deposito = float(input('DIGITE O SEU DEPOSITO: '))
             conta[3] += deposito
+            depositos.append([id, deposito])
             print(conta[3])
+        elif id != conta[0]:
+            print('NÃO EXISTE ESSE CPF, ADICIONE-O')
+            menuCadastro()
+
     menuPrincipal()
     traco()
+
+def menuPix():
+    traco()
+    for conta in (contas):
+        id = int(input('DIGITE O CPF QUE IRÁ FAZER O PIX: '))
+        if id == conta[0]:
+            pix = int(input('DIGITE O VALOR DO PIX'))
+            saldoorigem = conta[3] - pix
+            conta[3] = saldoorigem
+            recebe = int(input('DIGITE O CPF QUE IRÁ RECEBER O PIX: '))
+            recibimento(recebe, pix)
+            pixs.append([id, pix, date.today(), recebe])
+        elif id != conta[0]:
+            print('NÃO EXISTE ESSE CPF, ADICIONE-O')
+            menuCadastro()
+
+    traco()
+    menuPrincipal()
+            
+def recibimento(recebidor, valor):
+    for conta in contas:
+        if recebidor == conta[0]:
+            conta[3] += valor
+
 
 def menuPrincipal():
     traco()
@@ -37,8 +95,20 @@ def menuPrincipal():
         menuAlterar()
     elif escolha == 3:
         menuDepositos() 
+    elif escolha == 4:
+        menuPix()
+    elif escolha == 5:
+        menuExtrato()
+    elif escolha == 6:
+        certeza = int(input('VOCÊ TEM CERTEZA QUE QUER FINALIZAR OS PROCESSOS? DIGITE 1 PARA SIM E 2 PARA VOLTAR'))
+        if certeza == 1:
+            quit()
+        elif certeza == 2:
+            menuPrincipal()
+    traco()
 
 def menuCadastro():
+    traco()
     cpf = int(input("DIGITE O CPF: "))
     for conta in contas:
         if cpf == conta[0]:
@@ -48,7 +118,11 @@ def menuCadastro():
             print("SEU CPF É: ", cpf, '\n',
                   "NUMERO DA CONTA: ", numconta, '\n',
                   "NOME: ", nome)
-            menuPrincipal()
+        elif cpf != conta[0]:
+            print('NÃO EXISTE ESSE CPF, ADICIONE-O')
+            menuCadastro()
+
+        menuPrincipal()
 
 
     print("CPF NÃO ESTÁ CADASTRADO")
@@ -58,6 +132,7 @@ def menuCadastro():
     contas.append([cpf, numconta, nome, saldo])
     print("CONTA ADICIONADA")
     menuPrincipal()
+    traco()
 
 
 def menuAlterar():
@@ -88,6 +163,7 @@ def menuAlterar():
                 print("A CONTA FOI MODIFICADA")
                 print(contas)
     traco()
+    menuPrincipal()
 
 
 
